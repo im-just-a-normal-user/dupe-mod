@@ -14,7 +14,7 @@ public class DupeCommand {
         dispatcher.register(CommandManager.literal("dupe")
                 .executes(ctx -> {
 
-                    ServerPlayerEntity player = ctx.getSource().getPlayer();
+                    ServerPlayerEntity player = ctx.getSource().getPlayerOrThrow();
                     ItemStack stack = player.getMainHandStack();
 
                     if (stack.isEmpty()) {
@@ -22,7 +22,7 @@ public class DupeCommand {
                         return 0;
                     }
 
-                    String id = stack.getItem().toString();
+                    String id = net.minecraft.registry.Registries.ITEM.getId(stack.getItem()).toString();
 
                     if (!DataManager.data.whitelist.contains(id)) {
                         player.sendMessage(Text.literal("❌ Item no permitido"), false);
