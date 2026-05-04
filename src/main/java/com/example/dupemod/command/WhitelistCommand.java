@@ -21,7 +21,9 @@ public class WhitelistCommand {
 
                                     String id = StringArgumentType.getString(ctx, "item");
 
-                                    if (!Registries.ITEM.containsId(new Identifier(id))) {
+                                    Identifier identifier = Identifier.tryParse(id);
+
+                                    if (identifier == null || !Registries.ITEM.containsId(identifier)) {
                                         ctx.getSource().sendMessage(Text.literal("❌ Item inválido"));
                                         return 0;
                                     }
@@ -40,6 +42,13 @@ public class WhitelistCommand {
                                 .executes(ctx -> {
 
                                     String id = StringArgumentType.getString(ctx, "item");
+
+                                    Identifier identifier = Identifier.tryParse(id);
+
+                                    if (identifier == null || !Registries.ITEM.containsId(identifier)) {
+                                        ctx.getSource().sendMessage(Text.literal("❌ Item inválido"));
+                                        return 0;
+                                    }
 
                                     DataManager.data.whitelist.remove(id);
                                     DataManager.save();
