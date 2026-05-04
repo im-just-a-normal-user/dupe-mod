@@ -14,16 +14,15 @@ public class DupeMod implements ModInitializer {
 
     @Override
     public void onInitialize() {
-
-        LOGGER.info("DupeMod cargado correctamente");
-
-        // 🔥 Cargar datos JSON
+        // Cargar datos desde el archivo JSON al iniciar
         DataManager.load();
 
-        // 🔥 Registrar comandos
+        // Registrar los comandos en el servidor
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
-            DupeCommand.register(dispatcher);
-            WhitelistCommand.register(dispatcher);
+            DupeCommand.register(dispatcher); // Incluye /dupe y /dupecredit
+            WhitelistCommand.register(dispatcher); // Incluye /dupewhitelist
         });
+
+        LOGGER.info("DupeMod: Sistema de duplicacion y creditos inicializado.");
     }
 }
