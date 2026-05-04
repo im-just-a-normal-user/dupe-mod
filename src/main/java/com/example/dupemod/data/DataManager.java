@@ -23,9 +23,9 @@ public class DataManager {
                 return;
             }
 
-            Reader reader = new FileReader(FILE.toFile());
-            data = GSON.fromJson(reader, DupeData.class);
-            reader.close();
+            Reader r = new FileReader(FILE.toFile());
+            data = GSON.fromJson(r, DupeData.class);
+            r.close();
 
             if (data.whitelist == null) data.whitelist = new java.util.HashSet<>();
             if (data.credits == null) data.credits = new java.util.HashMap<>();
@@ -37,9 +37,9 @@ public class DataManager {
 
     public static void save() {
         try {
-            Writer writer = new FileWriter(FILE.toFile());
-            GSON.toJson(data, writer);
-            writer.close();
+            Writer w = new FileWriter(FILE.toFile());
+            GSON.toJson(data, w);
+            w.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
