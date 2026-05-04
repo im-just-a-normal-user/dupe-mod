@@ -1,35 +1,26 @@
 {
   "schemaVersion": 1,
   "id": "dupemod",
-  "version": "${version}",
-  "name": "DupeMod",
-  "description": "A simple server-side mod with dupe commands and whitelist system.",
+  "version": "1.1.0",
+  "name": "DupeMod ServerSide",
+  "description": "Mod de duplicación serverside para fabric 1.21.1",
   "authors": [
-    "Me!"
+    "im-just-a-normal-user"
   ],
-  "contact": {
-    "homepage": "",
-    "sources": ""
-  },
+  "contact": {},
   "license": "MIT",
   "icon": "assets/dupemod/icon.png",
-
   "environment": "server",
-
   "entrypoints": {
     "main": [
       "com.example.dupemod.DupeMod"
     ]
   },
-
   "mixins": [
     "dupemod.mixins.json"
   ],
-
   "depends": {
-    "fabricloader": ">=0.19.2",
-    "minecraft": "1.21.1",
-    "java": ">=21",
-    "fabric-api": "*"
+    "minecraft": ">=1.21.1",
+    "fabricloader": ">=0.16.0"
   }
 }
