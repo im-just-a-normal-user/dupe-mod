@@ -1,15 +1,15 @@
 package com.example.dupemod.data;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.UUID;
 
 public class DupeData {
-
-    public Set<String> whitelist = new HashSet<>();
-
-    public Map<UUID, Integer> credits = new HashMap<>();
-
+    // Lista de items en la whitelist
+    public List<String> whitelist = new ArrayList<>();
+    
+    // Mapa de créditos por jugador (UUID -> Cantidad)
+    public Map<UUID, Integer> playerCredits = new HashMap<>();
 }
