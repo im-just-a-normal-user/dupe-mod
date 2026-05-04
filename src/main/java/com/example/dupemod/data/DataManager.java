@@ -3,52 +3,30 @@ package com.example.dupemod.data;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import net.fabricmc.loader.api.FabricLoader;
-
-import java.io.*;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.nio.file.Path;
 
 public class DataManager {
-
+    private static final Path CONFIG_PATH = FabricLoader.getInstance().getConfigDir().resolve("dupemod.json");
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
-
-    private static final Path FILE = FabricLoader.getInstance()
-            .getConfigDir()
-            .resolve("dupemod.json");
-
     public static DupeData data = new DupeData();
 
     public static void load() {
-        try {
-            if (!FILE.toFile().exists()) {
-                save();
-                return;
+        File file = CONFIG_PATH.toFile();
+        if (file.exists()) {
+            try (FileReader reader = new FileReader(file)) {
+                data = GSON.fromJson(reader, DupeData.class);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-
-            try (Reader r = new FileReader(FILE.toFile())) {
-                data = GSON.fromJson(r, DupeData.class);
-            }
-
-            if (data == null) {
-                data = new DupeData();
-            }
-
-            if (data.whitelist == null) data.whitelist = new java.util.HashSet<>();
-            if (data.credits == null) data.credits = new java.util.HashMap<>();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            data = new DupeData();
         }
     }
 
     public static void save() {
-        try {
-            FILE.toFile().getParentFile().mkdirs();
-
-            try (Writer w = new FileWriter(FILE.toFile())) {
-                GSON.toJson(data, w);
-            }
-
+        try (FileWriter writer = new FileWriter(CONFIG_PATH.toFile())) {
+            GSON.toJson(data, writer);
         } catch (Exception e) {
             e.printStackTrace();
         }
