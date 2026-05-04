@@ -23,13 +23,15 @@ public class WhitelistCommand {
 
                                     Identifier identifier = Identifier.tryParse(id);
 
-                                    if (identifier == null || !Registries.ITEM.containsId(identifier)) {
+                                    if (identifier == null || Registries.ITEM.get(identifier) == null) {
                                         ctx.getSource().sendMessage(Text.literal("❌ Item inválido"));
                                         return 0;
                                     }
 
-                                    DataManager.data.whitelist.add(id);
-                                    DataManager.save();
+                                    if (!DataManager.data.whitelist.contains(id)) {
+                                        DataManager.data.whitelist.add(id);
+                                        DataManager.save();
+                                    }
 
                                     ctx.getSource().sendMessage(Text.literal("✅ Añadido a whitelist"));
                                     return 1;
@@ -45,7 +47,7 @@ public class WhitelistCommand {
 
                                     Identifier identifier = Identifier.tryParse(id);
 
-                                    if (identifier == null || !Registries.ITEM.containsId(identifier)) {
+                                    if (identifier == null || Registries.ITEM.get(identifier) == null) {
                                         ctx.getSource().sendMessage(Text.literal("❌ Item inválido"));
                                         return 0;
                                     }
