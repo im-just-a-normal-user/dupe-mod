@@ -2,8 +2,6 @@
 
 ✨ Un mod para duplicar ítems en Minecraft Fabric 1.21.1 ✨
 
-## Tabla de Contenidos
-
 - [Requisitos](#requisitos)
 - [Uso](#uso)
   
