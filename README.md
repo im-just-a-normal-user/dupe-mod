@@ -19,4 +19,4 @@
 ## Obtener el mod
 Al ser un proyecto privado, contactame por discord (just.a.normal.user) o por [GitHub](https://github.com/im-just-a-normal-user/dupe-mod/issues) para obtener el mod.
 
-Hecho con ❤️ por [im-just-a-normal-user](https://github.com/im-just-a-normal-user)
+Hecho con ❤️ por [im-just-a-normal-user](https://github.com/im-just-a-normal-user) para WingPaul!
