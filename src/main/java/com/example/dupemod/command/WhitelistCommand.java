@@ -2,12 +2,12 @@ package com.example.dupemod.command;
 
 import com.example.dupemod.data.DataManager;
 import com.mojang.brigadier.CommandDispatcher;
-import net.minecraft.command.argument.ItemStackArgumentType;
+import net.minecraft.command.argument.IdentifierArgumentType;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
-import net.minecraft.registry.Registries;
+import net.minecraft.util.Identifier;
 
 public class WhitelistCommand {
 
@@ -16,18 +16,19 @@ public class WhitelistCommand {
                 .requires(src -> src.hasPermissionLevel(2))
 
                 .then(CommandManager.literal("add")
-                        .then(CommandManager.argument("item", ItemStackArgumentType.itemStack(null))
+                        .then(CommandManager.argument("item_id", IdentifierArgumentType.identifier())
                                 .executes(ctx -> {
-                                    // Obtiene el ID completo (ej: minecraft:stick o create:cogwheel)
-                                    String id = Registries.ITEM.getId(ItemStackArgumentType.getItemStackArgument(ctx, "item").getItem()).toString();
+                                    // Usamos un identificador simple para evitar el error de carga
+                                    Identifier id = IdentifierArgumentType.getIdentifier(ctx, "item_id");
+                                    String idString = id.toString();
 
-                                    if (!DataManager.data.whitelist.contains(id)) {
-                                        DataManager.data.whitelist.add(id);
+                                    if (!DataManager.data.whitelist.contains(idString)) {
+                                        DataManager.data.whitelist.add(idString);
                                         DataManager.save();
                                     }
 
                                     ctx.getSource().sendMessage(Text.literal("✔ [DupeMod] ")
-                                            .append(Text.literal(id + " añadido a la whitelist").formatted(Formatting.WHITE))
+                                            .append(Text.literal(idString + " añadido a la whitelist").formatted(Formatting.WHITE))
                                             .formatted(Formatting.GREEN));
                                     return 1;
                                 })
@@ -35,14 +36,15 @@ public class WhitelistCommand {
                 )
 
                 .then(CommandManager.literal("del")
-                        .then(CommandManager.argument("item", ItemStackArgumentType.itemStack(null))
+                        .then(CommandManager.argument("item_id", IdentifierArgumentType.identifier())
                                 .executes(ctx -> {
-                                    String id = Registries.ITEM.getId(ItemStackArgumentType.getItemStackArgument(ctx, "item").getItem()).toString();
+                                    Identifier id = IdentifierArgumentType.getIdentifier(ctx, "item_id");
+                                    String idString = id.toString();
 
-                                    if (DataManager.data.whitelist.remove(id)) {
+                                    if (DataManager.data.whitelist.remove(idString)) {
                                         DataManager.save();
                                         ctx.getSource().sendMessage(Text.literal("✔ [DupeMod] ")
-                                                .append(Text.literal(id + " eliminado de la whitelist").formatted(Formatting.WHITE))
+                                                .append(Text.literal(idString + " eliminado de la whitelist").formatted(Formatting.WHITE))
                                                 .formatted(Formatting.GREEN));
                                     } else {
                                         ctx.getSource().sendMessage(Text.literal("✖ [DupeMod] ")
